@@ -23,3 +23,11 @@ def display_stats(self):
         print(self.stats.to.string(index=False))
     else:
         print("No player data is available.")
+
+# to get a specific player's stats by name 
+def get_player_stats(self, player_name):
+    player_data = self.stats[self.stats['Player'] == player_name]
+    if not player_data.empty:
+        print(player_data.to_string(index=False))
+    else:
+        print(f"No stats found for {player_name}.")
