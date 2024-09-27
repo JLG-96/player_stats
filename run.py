@@ -31,3 +31,45 @@ def get_player_stats(self, player_name):
         print(player_data.to_string(index=False))
     else:
         print(f"No stats found for {player_name}.")
+
+
+# Main function to run the programme 
+
+def main():
+    tracker = PlayerStats()
+
+    while True:
+        # Display main options 
+        print("\nFootball Stats Tracker")
+        print("1. Add player stats")
+        print("2. Display all stats")
+        print("3. Get player stats")
+        print("4. Exit")
+
+        choice = input("Enter your choice: ") #Get user choice
+
+        if choice == '1':
+            # Add new player stats 
+            name = input("Enter player name: ")
+            matches = input("Enter matches played: ")
+            goals = input("Enter goals scored: ")
+            assists = input("Enter assists made: ")
+            man_of_the_matches = input("Enter man of the matches earned: ")
+
+        elif choice == '2':
+            # Display all player stats
+            tracker.display.stats()
+        
+        elif choice == '3':
+            # Retrieve specific player stats 
+            name = input("Enter player name: ")
+            tracker.get_player_stats(name)
+
+        elif choice == '4':
+            # Exit the programme 
+            print("Exiting the tracker.")
+            break
+
+        else:
+            print("Invalid choice! Please select a valid option.")
+            
