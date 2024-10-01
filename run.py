@@ -54,7 +54,14 @@ class PlayerStats:
 
 # to get a specific player's stats by name 
     def get_player_stats(self, player_name):
-        player_data = self.stats[self.stats['Player'] == player_name]
+        # Retrieve all player stats from google sheet
+        sheet_data = self.sheet_worksheet.get_all_values()
+
+        stats_df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+
+        # Filter for the specific player
+        player_data = stats_df[stats_df['Player'].str.lower() == player_name.lower()] # Case-insensitive match
+
         if not player_data.empty:
             print(player_data.to_string(index=False))
         else:
