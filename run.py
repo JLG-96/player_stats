@@ -1,5 +1,23 @@
 import pandas as pd # pandas imported as using data sets
+import gspread
+from google.oauth2.service_account import Credentials
 
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('CPD-player-stats')
+
+stats = SHEET.worksheet('stats')
+data = stats.get_all_values()
+print(data)
+
+"""
 class PlayerStats: 
     def __init__(self): 
         # Create DataFrame to store player statistics with columns
@@ -78,4 +96,5 @@ def main():
 
 if __name__ == "__main__":
     main() # Run main function
+    """
             
