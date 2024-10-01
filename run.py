@@ -17,25 +17,25 @@ SHEET = GSPREAD_CLIENT.open('CPD-player-stats')
 class PlayerStats: 
     def __init__(self, sheet_worksheet): 
         # Create DataFrame to store player statistics with columns
-        self.stats = pd.DataFrame(columns = ['Player', 'Matches', 'Goals', 'Assists', 'Man of the Matches']
+        self.stats = pd.DataFrame(columns = ['Player', 'Matches', 'Goals', 'Assists', 'Yellow Cards', 'Red Cards']
         )
         self.sheet_worksheet = sheet_worksheet
 
 # Add new players stats 
-    def add_player(self, player_name, matches, goals, assists, man_of_the_matches):
+    def add_player(self, player_name, matches, goals, assists, yellow_cards, red_cards):
         try:
-            new_data = {'Player': player_name, 'Matches': int(matches), 'Goals': int(goals), 'Assists': int(assists), 'Man of the Matches': int(man_of_the_matches)}
+            new_data = {'Player': player_name, 'Matches': int(matches), 'Goals': int(goals), 'Assists': int(assists), 'Yellow Cards': int(yellow_cards), 'Red Cards': int(red_cards)}
             self.stats = pd.concat([self.stats, pd.DataFrame([new_data])], ignore_index=True)
             print(f"{player_name}'s data added successfully!")
 
             # Append the player stats to Google Sheet
-            row = [player_name, matches, goals, assists, man_of_the_matches]
+            row = [player_name, matches, goals, assists, yellow_cards, red_cards]
             self.sheet_worksheet.append_row(row)
             print("Data being added to Google Sheet.")
 
         except ValueError:
             # to prevent invalid input 
-            print("Invalid input! Please ensure matches, goals, assists and man of the matches are numbers.")
+            print("Invalid input! Please ensure matches, goals, assists, yellow cards and red cards are numbers.")
 
 
 # to display player stats from Google Sheet
@@ -76,7 +76,7 @@ def main():
 
     while True:
         # Display main options 
-        print("\nFootball Stats Tracker")
+        print("\nCPD Yr Wyddgrug Stats Tracker")
         print("1. Add player stats")
         print("2. Display all stats")
         print("3. Get player stats")
@@ -90,10 +90,11 @@ def main():
             matches = input("Enter matches played: ")
             goals = input("Enter goals scored: ")
             assists = input("Enter assists made: ")
-            man_of_the_matches = input("Enter man of the matches earned: ")
+            yellow_cards = input("Enter yellow cards received: ")
+            red_cards = input("Enter red cards received: ")
 
             # Add player data
-            tracker.add_player(name, matches, goals, assists, man_of_the_matches)
+            tracker.add_player(name, matches, goals, assists, yellow_cards, red_cards)
 
         elif choice == '2':
             # Display all player stats
