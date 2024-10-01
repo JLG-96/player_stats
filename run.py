@@ -13,16 +13,13 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('CPD-player-stats')
 
-stats = SHEET.worksheet('stats')
-data = stats.get_all_values()
-print(data)
 
-"""
 class PlayerStats: 
-    def __init__(self): 
+    def __init__(self, sheet_worksheet): 
         # Create DataFrame to store player statistics with columns
         self.stats = pd.DataFrame(columns = ['Player', 'Matches', 'Goals', 'Assists', 'Man of the Matches']
         )
+        self.sheet_worksheet = sheet_worksheet
 
 # Add new players stats 
     def add_player(self, player_name, matches, goals, assists, man_of_the_matches):
@@ -30,6 +27,12 @@ class PlayerStats:
             new_data = {'Player': player_name, 'Matches': int(matches), 'Goals': int(goals), 'Assists': int(assists), 'Man of the Matches': int(man_of_the_matches)}
             self.stats = pd.concat([self.stats, pd.DataFrame([new_data])], ignore_index=True)
             print(f"{player_name}'s data added successfully!")
+
+            # Append the player stats to Google Sheet
+            row = [player_name, matches, goals, assists, man_of_the_matches]
+            self.sheet_worksheet.append_row(row)
+            print("Data being added to Google Sheet.")
+
         except ValueError:
             # to prevent invalid input 
             print("Invalid input! Please ensure matches, goals, assists and man of the matches are numbers.")
@@ -54,7 +57,8 @@ class PlayerStats:
 # Main function to run the programme 
 
 def main():
-    tracker = PlayerStats()
+    stats_worksheet = SHEET.worksheet('stats')
+    tracker = PlayerStats(stats_worksheet)
 
     while True:
         # Display main options 
@@ -64,7 +68,7 @@ def main():
         print("3. Get player stats")
         print("4. Exit")
 
-        choice = input("Enter your choice: ") #Get user choice
+        choice = input("Enter your choice: ") # Get user choice
 
         if choice == '1':
             # Add new player stats 
@@ -96,5 +100,3 @@ def main():
 
 if __name__ == "__main__":
     main() # Run main function
-    """
-            
