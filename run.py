@@ -38,10 +38,17 @@ class PlayerStats:
             print("Invalid input! Please ensure matches, goals, assists and man of the matches are numbers.")
 
 
-# to display player stats
+# to display player stats from Google Sheet
     def display_stats(self):
-        if not self.stats.empty: 
-            print(self.stats.to_string(index=False))
+
+        # Retrieve values from google sheet
+        sheet_data = self.sheet_worksheet.get_all_values()
+
+        stats_df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+
+
+        if not stats_df.empty: 
+            print(stats_df.to_string(index=False))
         else:
             print("No player data is available.")
 
