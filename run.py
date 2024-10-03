@@ -77,16 +77,24 @@ class PlayerStats:
             print("There is no top player for this category.")
             return
 
-        # convert values to integers for easy comparison
+        # Convert values to integers for easy comparison
         stats_df[['Matches', 'Goals', 'Assists', 'Yellow Cards', 'Red Cards']] = stats_df[['Matches', 'Goals', 'Assists', 'Yellow Cards', 'Red Cards']].apply(pd.to_numeric)
 
-        # Get the top player for each statistic
+        # Function to find top players
+        def find_top_players(column_name):
+            max_value = stats_df[column_name].max()
+            if max_value == 0:
+                return "No top player for this category."
+            top_players = stats_df[stats_df[column_name] == max_value]['Player'].tolist()
+            return ', '.join(top_players) if top_players else "No top player for this category"
         
-        top_matches = stats_df.loc[stats_df['Matches'].idxmax()]['Player']
-        top_goals = stats_df.loc[stats_df['Goals'].idxmax()]['Player']
-        top_assists = stats_df.loc[stats_df['Assists'].idxmax()]['Player']
-        top_yellow_cards = stats_df.loc[stats_df['Yellow Cards'].idxmax()]['Player']
-        top_red_cards = stats_df.loc[stats_df['Red Cards'].idxmax()]['Player']
+        # Get the top player(s) for each statistic
+        top_matches = find_top_players('Matches')
+        top_goals = find_top_players('Goals')
+        top_assists = find_top_players('Assists')
+        top_yellow_cards = find_top_players('Yellow Cards')
+        top_red_cards = find_top_players('Red Cards')
+
 
         print("\nTop Players: ")
         print(f"Most Matches Played: {top_matches}")
