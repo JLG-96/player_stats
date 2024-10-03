@@ -67,6 +67,36 @@ class PlayerStats:
         else:
             print(f"No stats found for {player_name}.")
 
+    # Method to get the top players for the different stats
+
+    def get_top_players(self):
+        sheet.data = self.sheet_worksheet.get_all_values()
+        stats_df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
+
+        if stats_df.empty:
+            print("There is no top player for this category.")
+            return
+
+        # convert values to integers for easy comparison
+        stats_df[['Matches', 'Goals', 'Assists', 'Yellow Cards', 'Red Cards']] = stats_df[['Matches', 'Goals', 'Assists', 'Yellow Cards', 'Red Cards']].apply(pd.to_numeric)
+
+        # Get the top player for each statistic
+        
+        top_matches = stats_df.loc[stats_df['Matches'].idmax()]['Player']
+        top_goals = stats_df.loc[stats_df['Goals'].idmax()]['Player']
+        top_assists = stats_df.loc[stats_df['Assists'].idmax()]['Player']
+        top_yellow_cards = stats_df.loc[stats_df['Yellow Cards'].idmax()]['Player']
+        top_red_cards = stats_df.loc[stats_df['Red Cards'].idmax()]['Player']
+
+        print("\nTop Players: ")
+        print(f"Most Matches Played: {top_matches}")
+        print(f"Most Goals Scored: {top_goals}")
+        print(f"Most Assists Made: {top_assists}")
+        print(f"Most Yellow Cards: {top_yellow_cards}")
+        print(f"Most Red Cards: {top_red_cards}")
+
+
+
 
 # Main function to run the programme 
 
