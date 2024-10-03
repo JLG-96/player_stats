@@ -70,7 +70,7 @@ class PlayerStats:
     # Method to get the top players for the different stats
 
     def get_top_players(self):
-        sheet.data = self.sheet_worksheet.get_all_values()
+        sheet_data = self.sheet_worksheet.get_all_values()
         stats_df = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
 
         if stats_df.empty:
@@ -82,11 +82,11 @@ class PlayerStats:
 
         # Get the top player for each statistic
         
-        top_matches = stats_df.loc[stats_df['Matches'].idmax()]['Player']
-        top_goals = stats_df.loc[stats_df['Goals'].idmax()]['Player']
-        top_assists = stats_df.loc[stats_df['Assists'].idmax()]['Player']
-        top_yellow_cards = stats_df.loc[stats_df['Yellow Cards'].idmax()]['Player']
-        top_red_cards = stats_df.loc[stats_df['Red Cards'].idmax()]['Player']
+        top_matches = stats_df.loc[stats_df['Matches'].idxmax()]['Player']
+        top_goals = stats_df.loc[stats_df['Goals'].idxmax()]['Player']
+        top_assists = stats_df.loc[stats_df['Assists'].idxmax()]['Player']
+        top_yellow_cards = stats_df.loc[stats_df['Yellow Cards'].idxmax()]['Player']
+        top_red_cards = stats_df.loc[stats_df['Red Cards'].idxmax()]['Player']
 
         print("\nTop Players: ")
         print(f"Most Matches Played: {top_matches}")
@@ -110,7 +110,8 @@ def main():
         print("1. Add player stats")
         print("2. Display all stats")
         print("3. Get player stats")
-        print("4. Exit")
+        print("4. Get top players")
+        print("5. Exit")
 
         choice = input("Enter your choice: ") # Get user choice
 
@@ -136,6 +137,10 @@ def main():
             tracker.get_player_stats(name)
 
         elif choice == '4':
+            # Display top players for each stat
+            tracker.get_top_players()
+
+        elif choice == '5':
             # Exit the programme 
             print("Exiting the tracker.")
             break
