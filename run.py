@@ -17,8 +17,7 @@ SHEET = GSPREAD_CLIENT.open('CPD-player-stats')
 class PlayerStats: 
     def __init__(self, sheet_worksheet): 
         # Create DataFrame to store player statistics with columns
-        self.stats = pd.DataFrame(columns = ['Player', 'Matches', 'Goals', 'Assists', 'Yellow Cards', 'Red Cards']
-        )
+        self.stats = pd.DataFrame(columns = ['Player', 'Matches', 'Goals', 'Assists', 'Yellow Cards', 'Red Cards'])
         self.sheet_worksheet = sheet_worksheet
 
 # Add new players stats 
