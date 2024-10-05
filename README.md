@@ -5,6 +5,9 @@
 This project is a **Football Player Statistics Tracker** for my local football club CPD Yr Wyddgrug for the 24/25 campaign. 
 The application allows the user to store, retrieve, and manage football player statistics such as matches played, goals scored, assists, and disciplinary records (yellow and red cards). The stats are saved to and retrieved from a Google Sheet, ensuring the data is accessible and persistent.
 
+The programme has been written to allow the management team of CPD Yr Wyddgrug to easily retrieve or add player data for the 24/25 season. 
+The initial idea was to create general statistics for football players for the user to add / retrieve. However, upon building I believed it would be better to make it more useful and relatable by associating it to my local football club.
+
 The application provides a command-line interface for:
 - Adding player stats.
 - Retrieving a list of all players' stats.
