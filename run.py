@@ -31,17 +31,20 @@ class PlayerStats:
     def add_player(self, player_name, matches, goals, assists,
                    yellow_cards, red_cards):
         try:
-            # Check if player name is valid 
+            # Check if player name is valid
             if not player_name.replace(" ", "").isalpha():
-                raise ValueError("Player name must only contain letters and spaces.")
-                
+                raise ValueError(
+                    "Player name must only contain letters and spaces."
+                    )
 
             # Validate that all inputs are positive integers
             inputs = [matches, goals, assists,
                       yellow_cards, red_cards]
             for value in inputs:
                 if not value.isdigit() or int(value) < 0:
-                    raise ValueError("All statistics must be positive numbers.")
+                    raise ValueError(
+                        "All statistics must be positive numbers."
+                        )
 
             new_data = {
                 'Player': player_name,
