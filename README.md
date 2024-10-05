@@ -87,13 +87,15 @@ I have manually tested this project by doing the following:
 - Given invalid inputs: strings when numbers are expected.
 - Stats are displayed correctly or a message is shown indicating no data available.
 - All tied *Top performers* are listed with appropriate data handling for zeros.
-- Tested in my local terminal and the Code Institute Heroku terminal
+- Tested in my local terminal and the Code Institute Heroku terminal.
+- Tested with *Flake8* to ensure the code meets requirements.
 
 ## Bugs
 1. Originally the system displayed only one name, even if there were multiple top performers. This was solved by allowing for tied performers to be shown. 
 2. Even when there was no top performer, the player at the top of the column was being displayed. This was fixed by allowing for a message to be shown if there is no *Top performer.*
 3. Players names weren't being recognised and this was solved by making it not case sensitive. 
-4. The system will accept duplicate names, this could be handled and allow for easier identification between players by asking for surname and or position. 
+4. The system will accept duplicate names, this could be handled and allow for easier identification between players by asking for surname and or position.
+5. When adding players data, the user was able to add negative numbers. This was corrected by adding an input validation loop and providing feedback should any values fail.
 
 ## Deployment 
 This project was deployed using Code Institute's mock terminal for Heroku. 

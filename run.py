@@ -31,6 +31,13 @@ class PlayerStats:
     def add_player(self, player_name, matches, goals, assists,
                    yellow_cards, red_cards):
         try:
+            # Validate that all inputs are non-negative integers
+            inputs = [matches, goals, assists,
+                      yellow_cards, red_cards]
+            for value in inputs:
+                if not value.isdigit() or int(value) < 0:
+                    raise ValueError("All statistics must be positive numbers.")
+
             new_data = {
                 'Player': player_name,
                 'Matches': int(matches),
@@ -50,10 +57,9 @@ class PlayerStats:
             self.sheet_worksheet.append_row(row)
             print("Data being added to Google Sheet.")
 
-        except ValueError:
+        except ValueError as e:
             # to prevent invalid input
-            print("Invalid input! Please ensure matches, goals, assists, "
-                  "yellow cards and red cards are numbers.")
+            print(f"Invalid input! {e}")
 
     # to display player stats from Google Sheet
     def display_stats(self):
